@@ -14,7 +14,7 @@ const apiService = new ApiService();
 // let perPage = 12;
 // let pageNum = 1;
 // let searhImg = '';
-console.log(apiService);
+// console.log(_debounce);
 
 LoadMoreBtnEl.addEventListener('click', handleloadMore);
 // input.addEventListener('input', _debounce(() => {
@@ -39,34 +39,41 @@ function getImg(evt) {
 
     apiService.query = evt.target.value;
 
-    apiService.getImg();
+    // console.log(apiService.query)
 
-console.log(apiService.query)
-    
+    if (apiService.query)
+    {
+        apiService.getImg().then(renderGallary);
+
+        LoadMoreBtnEl.classList.toggle('opacity');
+    } else
+    {
+        resetRenderPage();
+        LoadMoreBtnEl.classList.toggle('opacity');
+    }
+    apiService.resetPage()
 };
 
-function handleloadMore (){
- apiService.getImg();
+function handleloadMore() {
+    apiService.getImg().then(renderGallary);
 };
 
-console.log()
 
 function resetRenderPage() {
 
-      if (!input.value) {
-        galleryEl.innerHTML = '';
-    };
-};
-
-function renderGallary(renderGrid) {
-
-    galleryEl.innerHTML = renderGrid;
+    galleryEl.innerHTML = '';
 
 };
 
-function renderLoadMore(renderGrid) {
+function renderGallary(articles) {
 
-    galleryEl.insertAdjacentHTML('beforeend', renderGrid);
+    galleryEl.insertAdjacentHTML('beforeend', galleryTml(articles));
 
 };
+
+// function renderLoadMore() {
+
+
+
+// };
 

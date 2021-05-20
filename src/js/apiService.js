@@ -8,9 +8,9 @@ export default class ApiService {
         this.PIXABAY_KEY = '21694115-487a2c793b7208539d5182bab';
     }
     getImg() {
-        return axios.get(`https://pixabay.com/api/?key=${this.PIXABAY_KEY}&q=${this.imgName}&image_type=photo&page=${this.pageNum}&per_page=${this.perPage}&image_type=photo&orientation=horizontal&`)
+        return axios.get(`https://pixabay.com/api/?key=${ this.PIXABAY_KEY }&q=${ this.imgName }&image_type=photo&page=${ this.pageNum }&per_page=${ this.perPage }&image_type=photo&orientation=horizontal&`)
             .then(function (response) {
- 
+
                 return response.data.hits;
 
                 // const renderPage = galleryTml(imgObject);
@@ -20,11 +20,17 @@ export default class ApiService {
             .then(data => {
                 this.pageNum += 1;
                 this.perPage += 12;
+                console.log(data);
+                return data;
             })
             .catch(error => {
-            console.log(error);
-            
-        })
+                console.log(error);
+
+            })
+    }
+    resetPage() {
+        this.pageNum = 1;
+        this.perPage = 12;
     }
     get query() {
         return this.imgName;
