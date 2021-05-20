@@ -5,24 +5,25 @@ import _debounce from '../node_modules/lodash.debounce';
 import galleryTml from './templates/galleryTml.hbs';
 const BASE_URL = 'https://pixabay.com/api/';
 const PIXABAY_KEY = '21694115-487a2c793b7208539d5182bab';
-const galleryEl = document.querySelector('.gallery')
-
-// console.log(galleryEl);
+const galleryEl = document.querySelector('.gallery');
+const LoadMoreBtnEl = document.querySelector('.LoadMoreBtn');
+const input = document.querySelector('.input');
 
 let perPage = 12;
 let pageNum = 1;
+let searhImg = '';
+console.log(axios);
 
-const input = document.querySelector('.input');
-
+LoadMoreBtnEl.addEventListener('click', handleloadMore);
 input.addEventListener('input', _debounce(() => {
 
-    let searhImg = input.value;
+    searhImg = input.value;
 
     getImg(searhImg);
 
-    // getCountry(searhContry);
+}, 500),);
 
-}, 500));
+// console.log(searhImg);
 
 // function renderGallary(renderGrid) {
 
@@ -30,9 +31,9 @@ input.addEventListener('input', _debounce(() => {
 
 // }
 
-function getImg(imgName) {
-
-    return axios.get(`https://pixabay.com/api/?key=${ PIXABAY_KEY }&q=${ imgName }&image_type=photo&page=${ pageNum }&per_page=${ perPage }&image_type=photo&orientation=horizontal&`)
+function getImg() {
+    
+    return axios.get(`${BASE_URL}?key=${ PIXABAY_KEY }&q=${searhImg}&image_type=photo&page=${ pageNum }&per_page=${ perPage }&image_type=photo&orientation=horizontal&`)
         .then(function (response) {
 
             const imgObject = response.data.hits;
@@ -41,14 +42,45 @@ function getImg(imgName) {
 
             renderGallary(renderPage);
 
-            console.log(imgObject);
+             resetRenderPage();
+
+            LoadMoreBtnEl.classList.toggle('opacity');
 
         }).catch(error => {
             console.log(error);
 
         })
 };
+function handleloadMore (imgName){
+    console.log(imgName);
+    perPage += 12;
+    pageNum += 1;
+
+    return axios.get(`https://pixabay.com/api/?key=${PIXABAY_KEY}&q=${imgName}&image_type=photo&page=${pageNum}&per_page=${perPage}&image_type=photo&orientation=horizontal&`)
+        .then(function (response) {
+ 
+            const imgObject = response.data.hits;
+
+            const renderPage = galleryTml(imgObject);
+
+            renderLoadMore(renderPage);
+
+            console.log(imgObject);
+
+        }).catch(error => {
+            console.log(error);
+            
+        })
+};
+
 console.log()
+
+function resetRenderPage() {
+
+      if (!input.value) {
+        galleryEl.innerHTML = '';
+    };
+};
 
 function renderGallary(renderGrid) {
 
@@ -56,22 +88,9 @@ function renderGallary(renderGrid) {
 
 };
 
-const handleloadMore = () => {
-    return axios.get(`https://pixabay.com/api/?key=${ PIXABAY_KEY }&q=${ imgName }&image_type=photo&page=${ pageNum + 1 }&per_page=${ perPage + 12 }&image_type=photo&orientation=horizontal&`)
-        .then(function (response) {
+function renderLoadMore(renderGrid) {
 
-            const imgObject = response.data.hits;
+    galleryEl.insertAdjacentHTML('beforeend', renderGrid);
 
-            const renderPage = galleryTml(imgObject);
-
-            renderGallary(renderPage);
-
-            console.log(imgObject);
-
-        }).catch(error => {
-            console.log(error);
-
-        })
-
-}
+};
 

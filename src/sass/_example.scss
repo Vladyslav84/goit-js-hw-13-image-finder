@@ -1,4 +1,4 @@
-.gallery{
+.gallery {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -10,13 +10,30 @@
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   grid-gap: 24px;
 }
-.stats{
+.stats {
   display: inline-flex;
-    
 }
 
-.material-icons{
-  width: 20px;
-  margin-right: 10px;
-  margin-left: 5px;
+// .material-icons {
+
+// }
+.input {
+  display: block;
+  margin-top: 100px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.LoadMoreBtn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+}
+.opacity {
+  opacity: 0;
 }
