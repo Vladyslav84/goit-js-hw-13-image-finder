@@ -1,4 +1,5 @@
 .gallery {
+  // height: 50vh;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -29,7 +30,6 @@
 
 .LoadMoreBtn {
   display: block;
-
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -37,4 +37,7 @@
 }
 .opacity {
   opacity: 0;
+}
+.div{
+height: 100vh;
 }

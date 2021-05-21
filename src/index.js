@@ -18,7 +18,7 @@ const apiService = new ApiService();
 LoadMoreBtnEl.addEventListener('click', handleloadMore);
 LoadMoreBtnEl.addEventListener('click', scroll);
 
-input.addEventListener('input', _debounce(getImg, 500));
+input.addEventListener('input', _debounce(getImg, 1000));
 
 function getImg(evt) {
     evt.preventDefault();
@@ -38,10 +38,12 @@ function getImg(evt) {
         LoadMoreBtnEl.classList.toggle('opacity');
     }
     apiService.resetPage()
+
 };
 
 function handleloadMore() {
     apiService.getImg().then(renderGallary);
+    scroll(galleryEl);
 };
 
 
@@ -57,9 +59,7 @@ function renderGallary(articles) {
 
 };
 
-function scroll(elm) {
-    window.scrollTo({
-    top: galleryEl.scrollHeight,
-    behavior: 'smooth',
-});
+function scroll() {
+    window.scrollTo(0, galleryEl.clientHeight - 150)
+    console.log(galleryEl.scrollHeight);
 }
