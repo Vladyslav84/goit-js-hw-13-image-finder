@@ -10,29 +10,15 @@ const galleryEl = document.querySelector('.gallery');
 const LoadMoreBtnEl = document.querySelector('.LoadMoreBtn');
 const input = document.querySelector('.input');
 const apiService = new ApiService();
+// const photoCard = document.querySelector('.photo-card')
+// const divEl = document.querySelector('.div')
 
-// let perPage = 12;
-// let pageNum = 1;
-// let searhImg = '';
 // console.log(_debounce);
 
 LoadMoreBtnEl.addEventListener('click', handleloadMore);
-// input.addEventListener('input', _debounce(() => {
+LoadMoreBtnEl.addEventListener('click', scroll);
 
-//     searhImg = input.value;
-
-//     getImg(searhImg);
-
-// }, 500),);
 input.addEventListener('input', _debounce(getImg, 500));
-
-// console.log(searhImg);
-
-// function renderGallary(renderGrid) {
-
-//     galleryTml(renderGrid);
-
-// }
 
 function getImg(evt) {
     evt.preventDefault();
@@ -71,9 +57,9 @@ function renderGallary(articles) {
 
 };
 
-// function renderLoadMore() {
-
-
-
-// };
-
+function scroll(elm) {
+    window.scrollTo({
+    top: galleryEl.scrollHeight,
+    behavior: 'smooth',
+});
+}

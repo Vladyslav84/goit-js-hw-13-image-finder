@@ -19,8 +19,6 @@ export default class ApiService {
             })
             .then(data => {
                 this.pageNum += 1;
-                this.perPage += 12;
-                console.log(data);
                 return data;
             })
             .catch(error => {
@@ -30,8 +28,7 @@ export default class ApiService {
     }
     resetPage() {
         this.pageNum = 1;
-        this.perPage = 12;
-    }
+      }
     get query() {
         return this.imgName;
     };
