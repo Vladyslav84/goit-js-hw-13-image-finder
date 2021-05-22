@@ -1,5 +1,4 @@
 import axios from '../../node_modules/axios';
-// import galleryTml from '../templates/galleryTml.hbs';
 export default class ApiService {
     constructor() {
         this.imgName = '';
@@ -12,10 +11,6 @@ export default class ApiService {
             .then(function (response) {
 
                 return response.data.hits;
-
-                // const renderPage = galleryTml(imgObject);
-
-                // renderLoadMore(renderPage);
             })
             .then(data => {
                 this.pageNum += 1;
@@ -23,12 +18,11 @@ export default class ApiService {
             })
             .catch(error => {
                 console.log(error);
-
             })
     }
     resetPage() {
         this.pageNum = 1;
-      }
+    }
     get query() {
         return this.imgName;
     };
