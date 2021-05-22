@@ -1,4 +1,5 @@
 import axios from '../../node_modules/axios';
+
 export default class ApiService {
     constructor() {
         this.imgName = '';
@@ -14,7 +15,7 @@ export default class ApiService {
             })
             .then(data => {
                 this.pageNum += 1;
-                return data;
+                return data
             })
             .catch(error => {
                 console.log(error);
@@ -29,4 +30,8 @@ export default class ApiService {
     set query(newImgName) {
         this.imgName = newImgName;
     }
+    get data() {
+        return data;
+    }
 };
+
