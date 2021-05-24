@@ -70,8 +70,9 @@ function scroll() {
 function onGalleryElClick(evt) {
     evt.preventDefault();
 
-    const instance = basicLightbox.create(` <img src=${ evt.target.getAttribute('data-source') } >`)
-
-    instance.show()
+    if (evt.target.nodeName === 'IMG')
+    {
+        const instance = basicLightbox.create(` <img src=${ evt.target.getAttribute('data-source') } >`).show();
+    }
 };
 
