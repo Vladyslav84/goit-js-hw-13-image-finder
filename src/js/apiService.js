@@ -30,7 +30,4 @@ export default class ApiService {
     set query(newImgName) {
         this.imgName = newImgName;
     }
-    get data() {
-        return data;
-    }
 };

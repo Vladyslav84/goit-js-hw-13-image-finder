@@ -10,6 +10,7 @@ const LoadMoreBtnEl = document.querySelector('.LoadMoreBtn');
 const input = document.querySelector('.input');
 const apiService = new ApiService();
 const searchForm = document.querySelector('.search-form')
+const divEl = document.querySelector('div');
 
 LoadMoreBtnEl.addEventListener('click', handleloadMore);
 galleryEl.addEventListener('click', onGalleryElClick);
@@ -23,12 +24,13 @@ function getImg(evt) {
 
     if (apiService.query)
     {
+        console.log('ff');
         apiService.getImg().then(renderGallary);
 
-        LoadMoreBtnEl.classList.toggle('opacity');
+        // LoadMoreBtnEl.classList.toggle('opacity');
     } else
     {
-        LoadMoreBtnEl.classList.toggle('opacity');
+        // LoadMoreBtnEl.classList.toggle('opacity');
     }
     apiService.resetPage()
 
@@ -43,7 +45,7 @@ function resetPage() {
     if (input.value === '')
     {
         resetRenderPage();
-        LoadMoreBtnEl.classList.toggle('opacity');
+        // LoadMoreBtnEl.classList.toggle('opacity');
     }
 };
 
@@ -76,3 +78,27 @@ function onGalleryElClick(evt) {
     }
 };
 
+const onEntry = entries => {
+    entries.forEach(entry => {
+        if (console.log(entry.isIntersecting))
+        {
+            console.log('gg');
+
+            // newApiService.fetchArticles().then(onMakeGallery).catch(onFetchError);
+            apiService.getImg().then(renderGallary);
+
+            // handleloadMore();
+        }
+    });
+};
+// console.log(onEntry);
+const options = {
+    rootMargin: '300px',
+    // threshold: 0.1,
+};
+
+let observer = new IntersectionObserver(onEntry, options);
+
+observer.observe(divEl);
+
+apiService.getImg().then(renderGallary);
